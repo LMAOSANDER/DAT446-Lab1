@@ -12,7 +12,10 @@ def is_url(string):
 def main():
     url = False
     args = sys.argv
+
     stop_words_file = args[1]
+    with open(stop_words_file, "r") as stop_file:
+        stop_words_list = stop_file.read().split()
     in_string = args[2]
     n = int(args[3])
 
@@ -23,7 +26,7 @@ def main():
         in_file = open(in_string)
 
     word_list = wordfreq.tokenize(in_file)
-    word_dict = wordfreq.countWords(word_list, stop_words=stop_words_file)
+    word_dict = wordfreq.countWords(word_list, stop_words=stop_words_list)
     wordfreq.printTopMost(frequencies=word_dict, n=n)
 
     if url:
