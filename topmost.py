@@ -12,8 +12,9 @@ def is_url(string):
 def main():
     url = False
     args = sys.argv
-    in_string = args[1]
-    n = int(args[2])
+    stop_words_file = args[1]
+    in_string = args[2]
+    n = int(args[3])
 
     if is_url(in_string):
         in_file = urllib.request.urlopen(in_string).read().decode("utf8").splitlines()
@@ -22,7 +23,7 @@ def main():
         in_file = open(in_string)
 
     word_list = wordfreq.tokenize(in_file)
-    word_dict = wordfreq.countWords(word_list, stop_words="eng_stopwords.txt")
+    word_dict = wordfreq.countWords(word_list, stop_words=stop_words_file)
     wordfreq.printTopMost(frequencies=word_dict, n=n)
 
     if url:
